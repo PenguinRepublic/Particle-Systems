@@ -128,13 +128,13 @@ Particle.prototype.calculateColorAlpha = function(){
 	if(d <= 10)
 		return this.alpha = "1";
 	if(d <= 30)
-		return this.alpha = "0.5";
+		return this.alpha = "0.8";
 	if(d <= 70)
-		return this.alpha = "0.4";
+		return this.alpha = "0.6";
 	if(d <= 100)
-		return this.alpha = "0.2";
+		return this.alpha = "0.4";
 	if(d <= 120)
-		return this.alpha = "0.1";
+		return this.alpha = "0.3";
 	return this.alpha = "0";
 };
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -185,7 +185,7 @@ ParticlesController.prototype.update = function(){
 
 
 var clrScreen = function(){
-	// ctx.clearRect(0, 0, c.width, c.height);
+	ctx.clearRect(0, 0, c.width, c.height);
 	ctx.fillStyle = "black";
 	ctx.fillRect(0, 0, c.width, c.height);
 }
