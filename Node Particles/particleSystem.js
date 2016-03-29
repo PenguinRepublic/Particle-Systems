@@ -15,7 +15,7 @@ c.width  = window.innerWidth;
 c.height = window.innerHeight;
 var center = new Vector2(c.width/2, c.height/2);
 
-var numberOfParcticles = 1000;
+var numberOfParcticles = 800;
 var numberOfConnections = 5;
 
 var minMovingValue = 1.0;
