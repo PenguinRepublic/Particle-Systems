@@ -125,7 +125,7 @@ Particle.prototype.getMaxLineWidthAndColor = function() {
 Particle.prototype.drawLineToClosest = function(){
 	ctx.beginPath();
 	lineWidthAndColor = this.getMaxLineWidthAndColor();
-	ctx.lineWidth = lineWidthAndColor.lineWidth;
+	ctx.lineWidth = this.lineWidth;
 	ctx.strokeStyle = lineWidthAndColor.color;
 	for (var i = 0; i < numberOfConnections; i++) {
 		// ctx.strokeStyle = this.closest[i].color;
