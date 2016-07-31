@@ -17,7 +17,7 @@ var center = new Vector2(c.width/2, c.height/2);
 
 
 var offset = 30;
-var subDivisions = 10;
+var subDivisions = 25;
 
 var numberOfConnections = 5;
 
