@@ -24,46 +24,17 @@ var numberOfConnections = 5;
 var minMovingValue = 1.0;
 var maxMovingValue = 30.0;
 
-//Mouse Detection %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 var mouse = new Vector2(-1000, -1000);
 c.addEventListener("mousemove", updateMouse);
 function updateMouse(e) {
 	mouse.x = e.pageX;
 	mouse.y = e.pageY;
 }
-//%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-//Vector2 class %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-function Vector2(x, y) {
-	this.x = x || 0.0;
-	this.y = y || 0.0;
-}
-
-Vector2.prototype.lerp = function(v, t) {
-	this.x = lerp(this.x, v.x, t);
-	this.y = lerp(this.y, v.y, t);
-}
-
-Vector2.prototype.distance = function(v) {
-	return Math.sqrt(Math.pow(v.x - this.x, 2) + Math.pow(v.y - this.y, 2));
-}
-
-Vector2.prototype.copy = function(v) {
-	this.x = v.x;
-	this.y = v.y;
-}
-
-Vector2.prototype.getNewPositionFrom = function(v) {
-	this.x = v.x + (randomSign() * getRandom(minMovingValue, maxMovingValue));
-	this.y = v.y + (randomSign() * getRandom(minMovingValue, maxMovingValue));
-	return new Vector2(this.x, this.y);
-}
-//%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-
-//Particle Class %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-function Particle(p, v) {
+/* Particle Class */
+function Particle(p, v, id = 0) {
+	this.id = id;
 	this.position = new Vector2(p.x, p.y) || new Vector2();
 	this.origin = new Vector2(p.x, p.y);
 	this.newPosition = new Vector2();
@@ -85,12 +56,8 @@ function Particle(p, v) {
 	moveParticle(this);
 }
 
-Particle.prototype.init = function(){
-	//Do stuff
-};
-
 Particle.prototype.setColorWithAlpha = function(){
-	this.color = "rgba(200, 0, 255, " + this.alpha + ")";
+	this.color = "rgba(0, 150, 0, " + this.alpha + ")";
 };
 
 Particle.prototype.draw = function(){
@@ -126,15 +93,17 @@ Particle.prototype.getMaxLineWidthAndColor = function() {
 Particle.prototype.drawLineToClosest = function(){
 	ctx.beginPath();
 	lineWidthAndColor = this.getMaxLineWidthAndColor();
-	ctx.lineWidth = this.lineWidth;
+	ctx.lineWidth = this.lineWidth + 0.2;
 	ctx.strokeStyle = lineWidthAndColor.color;
 	for (var i = 0; i < numberOfConnections; i++) {
+		ctx.beginPath();
 		// ctx.strokeStyle = this.closest[i].color;
 		ctx.moveTo(this.position.x, this.position.y);
 		ctx.lineTo(this.closest[i].position.x, this.closest[i].position.y);
 		ctx.stroke();
+		ctx.closePath();
 	}
-	ctx.closePath();
+
 };
 
 
@@ -182,13 +151,14 @@ ParticlesController.prototype.create = function(){
 	/*
 	 * Pushing particles with random position and 0.0 velocity
 	 */
-	widthSpacing = c.width/subDivisions;
-	heightSpacing = c.height/subDivisions;
+	var widthSpacing = c.width/subDivisions;
+	var heightSpacing = c.height/subDivisions;
+	var id = 0;
 	for (var i = 0; i < c.width; i += widthSpacing) {
 		for (var j = 0; j < c.height; j += heightSpacing) {
 			var x = randomDistributing(i, widthSpacing);
 			var y = randomDistributing(j, heightSpacing);
-			this.particles.push(new Particle(new Vector2(x, y), new Vector2()));
+			this.particles.push(new Particle(new Vector2(x, y), new Vector2(), id++));
 		}
 	}
 
