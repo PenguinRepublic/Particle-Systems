@@ -57,7 +57,7 @@ function Particle(p, v, id = 0) {
 }
 
 Particle.prototype.setColorWithAlpha = function(){
-	this.color = "rgba(0, 150, 0, " + this.alpha + ")";
+	this.color = "rgba(160, 0, 255, " + this.alpha + ")";
 };
 
 Particle.prototype.draw = function(){
@@ -93,7 +93,7 @@ Particle.prototype.getMaxLineWidthAndColor = function() {
 Particle.prototype.drawLineToClosest = function(){
 	ctx.beginPath();
 	lineWidthAndColor = this.getMaxLineWidthAndColor();
-	ctx.lineWidth = this.lineWidth + 0.2;
+	ctx.lineWidth = this.lineWidth + 0.4;
 	ctx.strokeStyle = lineWidthAndColor.color;
 	for (var i = 0; i < numberOfConnections; i++) {
 		ctx.beginPath();
