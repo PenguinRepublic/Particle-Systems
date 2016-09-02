@@ -6,7 +6,7 @@ fout = open('index.html', 'w')
 def buildIndex(root_folder = os.getcwd()):
 	rootLength, t = len(root_folder), []
 	for root, dir, files in os.walk(root_folder):
-		if '.git' not in root and len(root) > rootLength:
+		if '.git' not in root and 'libraries' not in root and len(root) > rootLength:
 			t.append(root[rootLength:])
 	return t
 

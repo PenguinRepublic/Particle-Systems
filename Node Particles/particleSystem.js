@@ -44,8 +44,9 @@ function Particle(p, v, id = 0) {
 	this.parents = [];
 	this.color = "";
 	this.alpha = "1";
-	this.minSpeed = getRandom(0.3, 1.5);
-	this.maxSpeed = getRandom(1.5, 2);
+	this.minSpeed = getRandom(0.4, 1.5);
+	this.maxSpeed = getRandom(1.5, 3);
+	// this.maxSpeed = getRandom(0.8, 1.5);
 	this.active = true;
 	this.lineWidth = 0;
 
@@ -91,12 +92,14 @@ Particle.prototype.getMaxLineWidthAndColor = function() {
 }
 
 Particle.prototype.drawLineToClosest = function(){
-	ctx.beginPath();
 	lineWidthAndColor = this.getMaxLineWidthAndColor();
 	ctx.lineWidth = this.lineWidth + 0.4;
 	ctx.strokeStyle = lineWidthAndColor.color;
 	for (var i = 0; i < numberOfConnections; i++) {
 		ctx.beginPath();
+		ctx.shadowOffsetX = 0.5;
+		ctx.shadowOffsetY = 0
+	  ctx.shadowBlur = 25
 		// ctx.strokeStyle = this.closest[i].color;
 		ctx.moveTo(this.position.x, this.position.y);
 		ctx.lineTo(this.closest[i].position.x, this.closest[i].position.y);
@@ -239,7 +242,7 @@ function moveParticle(p) {
 		{
 			x: getRandom(p.origin.x - offset, p.origin.x + offset),
 			y: getRandom(p.origin.y - offset, p.origin.y + offset),
-			ease: Expo.easeInOut,
+			ease: Circ.easeInOut,
 			onComplete: function() {
 				moveParticle(p);
 			}
