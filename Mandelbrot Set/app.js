@@ -33,8 +33,22 @@ var clrScreen = function() {
 var drawMandelBrotSet = function() {
 
 	var imageData = ctx.getImageData(0, 0, c.width, c.height)
-	var pixels = imageData.data;
-	var maxIterations = 100;
+
+	/**
+	 * Here we get an array with canvas pixels.
+	 * This data structure has the following format, an array
+	 * where each 4 elements are the rgba of that pixel.
+	 * So we have something like this:
+	 * [p11r, p11g, p11b, p11b, p12r, p12g, p12b, p12a, ... , p41r, p41g, p41b, p41a, ...]
+	 * so its like pxy, p for pixel, and x y means pixel canvas position, and r g b or a stand
+	 * for red green blue and alpha. Also this is rows (canvas width traversal
+ 	 * first basically) first array.
+	 *
+	 * @var array
+	 */
+	var pixels = imageData.data
+
+	var maxIterations = 100
 
 	for (var x = 0; x < c.width; x++) {
 		for (var y = 0; y < c.height; y++) {
@@ -62,6 +76,7 @@ var drawMandelBrotSet = function() {
 				bright = 0
 			}
 
+			/* traversing screen pixels! */
 			var i = (x + y * c.width) * 4
 			pixels[i] = bright // red
 			pixels[i+1] = bright // green
